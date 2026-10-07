@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Thank You</title>
+    <link rel="icon" type="image/png" href="res/ico.png" />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <button id="thank-you-audio-toggle" class="stop-audio" type="button" aria-label="Toggle music">
+      Stop Music
+    </button>
+
+    <audio id="thank-you-audio" src="audio/042. Welcome Back, Kirby.mp3" loop autoplay preload="auto"></audio>
+
+    <main class="thank-you-page">
+      <div class="thank-you-card">
+        <p class="thank-you-kicker">Happy Birthday Bubu, Eat Your Foodies</p>
+        <div id="thank-you-items" class="thank-you-items"></div>
+        <p class="thank-you-footer">I Loooooooooooooooooooove You</p>
+        <button id="back-to-menu-button" class="back-to-menu-button" type="button">Back to Menu</button>
+      </div>
+    </main>
+
+    <script>
+      const selectedItemsContainer = document.getElementById('thank-you-items');
+      const backButton = document.getElementById('back-to-menu-button');
+      const thankYouAudio = document.getElementById('thank-you-audio');
+      const thankYouAudioToggle = document.getElementById('thank-you-audio-toggle');
+      const itemImages = {
+        Bread: 'res/bread.jpg',
+        Cake: 'res/cake.jpg',
+        Cream: 'res/cream.jpg',
+        Ham: 'res/ham.jpg',
+        Hotdog: 'res/hotdog.jpg',
+        Juice: 'res/juice.jpg',
+        Lait: 'res/lait.jpg',
+        Parfait: 'res/parfait.jpg',
+        Rice: 'res/rice.jpg',
+        Salad: 'res/salad.jpg',
+        Soda: 'res/soda.jpg'
+      };
+
+      const selectedItems = JSON.parse(localStorage.getItem('birthdaySelectedItems') || '[]');
+
+      if (selectedItems.length === 0) {
+        selectedItemsContainer.innerHTML = '<p class="thank-you-empty">No treats picked yet.</p>';
+      } else {
+        selectedItemsContainer.innerHTML = selectedItems
+          .map(
+            (item) => `
+              <div class="thank-you-item">
+                <img src="${itemImages[item] || 'res/cherry.png'}" alt="${item}" />
+                <p class="thank-you-item-name">${item}</p>
+              </div>
+            `
+          )
+          .join('');
+      }
+
+      const toggleThankYouAudio = () => {
+        if (!thankYouAudio) return;
+
+        if (thankYouAudio.paused) {
+          thankYouAudio.volume = 0.7;
+          thankYouAudio.play().catch(() => {
+            console.log('Thank-you audio play was blocked until the user interacted with the page.');
+          });
+          if (thankYouAudioToggle) {
+            thankYouAudioToggle.textContent = 'Stop Music';
+          }
+        } else {
+          thankYouAudio.pause();
+          thankYouAudio.currentTime = 0;
+          if (thankYouAudioToggle) {
+            thankYouAudioToggle.textContent = 'Resume Music';
+          }
+        }
+      };
+
+      thankYouAudio?.play().catch(() => {
+        console.log('Thank-you audio autoplay was blocked until interaction.');
+      });
+
+      thankYouAudioToggle?.addEventListener('click', toggleThankYouAudio);
+
+      backButton?.addEventListener('click', () => {
+        window.location.href = 'index.html?showMenu=true';
+      });
+    </script>
+  </body>
+</html>

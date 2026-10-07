@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Baby Birthday</title>
+    <link rel="icon" type="image/png" href="res/ico.png" />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <button id="stop-audio" class="stop-audio" type="button" aria-label="Toggle music">
+      Stop Music
+    </button>
+
+    <audio id="menu-audio" src="audio/11 Area 6 - Olive Ocean.mp3" loop preload="auto"></audio>
+
+    <main class="app">
+      <section id="landing-page" class="page">
+        <div class="welcome-block">
+          <img class="welcome-image" src="res/kirbywave.png" alt="Kirby wave" />
+          <h1 class="welcome-text">Hiiii Birthday Nowl</h1>
+          <button class="enter-button" type="button">Click for Surprise</button>
+        </div>
+      </section>
+
+      <section id="menu-page" class="menu-page hidden" aria-live="polite">
+        <div class="menu-content">
+          <div class="menu-header-row">
+            <button id="back-button" class="back-button" type="button">← Back</button>
+            <header class="menu-header">
+              <h2 class="menu-title">Cafe Menu</h2>
+            </header>
+          </div>
+          <div class="menu-layout">
+            <div id="menu-grid" class="menu-grid"></div>
+
+            <aside id="selection-panel" class="selection-panel" aria-live="polite">
+              <button id="toggle-selection-panel" class="selection-pin" type="button" aria-label="Toggle selected items">
+                <img src="res/cherry.png" alt="Cherry pin" />
+              </button>
+              <div class="selection-card">
+                <div class="selection-header">
+                  <h3>My Picks</h3>
+                  <button id="clear-all-button" class="clear-all-button" type="button">Clear all</button>
+                </div>
+                <ul id="selected-items-list" class="selected-items-list">
+                  <li class="empty-state">No treats picked yet</li>
+                </ul>
+              </div>
+            </aside>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <script src="script.js"></script>
+  </body>
+</html>
